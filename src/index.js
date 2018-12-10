@@ -43,7 +43,10 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'index',
-      component: Home
+      component: Home,
+      meta: {
+        requiresAuth: false
+      }
     },
     {
       path: '/cadastrar_pet',
@@ -61,7 +64,10 @@ const router = new VueRouter({
       path: '/login',
       name: 'login',
       component: Login,
-      meta: {title: 'Login'}
+      meta: {
+        title: 'Login',
+        requiresAuth: false
+      }
     },
     {
       path: '/mudar_senha',
@@ -72,7 +78,10 @@ const router = new VueRouter({
     {
       path: '/*',
       component: NaoEncontrado,
-      meta: {title: 'Página não encontrada'}
+      meta: {
+        title: 'Página não encontrada',
+        requiresAuth: false
+      }
     }
   ],
   scrollBehavior (to, from, savedPosition) {
@@ -84,6 +93,14 @@ const router = new VueRouter({
   }
 })
 
+router.beforeEach((to, from, next) => {
+  let requiresAuth = to.meta.requiresAuth !== false
+  let isAuthenticated = localStorage.getItem('token') !== null
+  if (requiresAuth && !isAuthenticated) {
+    next({name: 'login'})
+  }
+  next()
+})
 router.beforeEach((to, from, next) => {
   let routeTitle = to.meta.title
   if (routeTitle) {
