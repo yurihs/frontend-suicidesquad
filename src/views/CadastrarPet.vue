@@ -121,7 +121,7 @@
         </div>
         <div class="radio-group">
           <input type="radio" id="vacinacao_em_dia" value="EM_DIA" name="vacinacao" v-model="pet.vacinacao">
-          <label for="vacinacao_em_dia">É fêmea</label>
+          <label for="vacinacao_em_dia">Em dia</label>
         </div>
       </div>
       <div class="input-group">
@@ -136,7 +136,7 @@
         </div>
         <div class="radio-group">
           <input type="radio" id="castracao_positiva" value="CASTRADO" name="castracao" v-model="pet.castracao">
-          <label for="castracao_positiva">É fêmea</label>
+          <label for="castracao_positiva">Castrado</label>
         </div>
       </div>
       <div class="input-group">
