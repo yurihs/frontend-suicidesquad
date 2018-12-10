@@ -2,7 +2,7 @@ import axios from 'axios'
 import NProgress from 'nprogress'
 
 const API = axios.create({
-  baseURL: process.env.NODE_ENV !== 'PRODUCTION' ? 'https://backend-suicide-squad.herokuapp.com/' : 'http://localhost:9000/'
+  baseURL: process.env.NODE_ENV === 'production' ? 'https://backend-suicide-squad.herokuapp.com/' : 'http://localhost:9000/'
 })
 
 API.interceptors.request.use(
