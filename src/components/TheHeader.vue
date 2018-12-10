@@ -23,7 +23,7 @@
         <ul class="dropdown">
           <li class="logout">
             <a @click="logout">
-              <span class="material-icons">exit_to_app</span>
+              <span class="material-icons">power_settings_new</span>
               Logout
             </a>
           </li>
@@ -37,6 +37,7 @@
       </li>
       <li class="profile" v-else-if="$route.name !== 'login'">
         <a @click="login">
+          <span class="material-icons">exit_to_app</span>
           Login
         </a>
       </li>
