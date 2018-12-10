@@ -49,10 +49,10 @@ const store = new Vuex.Store({
     cadastrarPet ({dispatch}, data) {
       return API.post('pets/', data)
     },
-    login (context, {nome, password}) {
+    login (context, {email, password}) {
       return API.post(
         'auth/email',
-        { email: nome, password: password }
+        { email: email, password: password }
       )
         .then(response => {
           let token = response.data.token

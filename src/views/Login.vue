@@ -7,8 +7,8 @@
     <h1>Login</h1>
     <div class="descricao">É necessário fazer login para cadastrar um pet.</div>
     <div class="input-group">
-      <label for="nome">Nome</label>
-      <input required type="text" id="nome" v-model="nome">
+      <label for="email">E-mail</label>
+      <input required type="email" id="email" v-model="email">
     </div>
 
     <div class="input-group">
@@ -31,7 +31,7 @@ export default {
   name: 'login',
   data () {
     return {
-      nome: null,
+      email: null,
       password: null,
       toasts: []
     }
@@ -40,7 +40,7 @@ export default {
     login () {
       this.$store.dispatch(
         'login',
-        { nome: this.nome, password: this.password }
+        { email: this.email, password: this.password }
       )
         .then(response => {
           this.toasts.forEach(x => x.goAway(0))
@@ -50,9 +50,9 @@ export default {
           this.password = null
           let msg = error.response.data.error
           let toast = null
-          if (msg === 'Invalid username or password') {
+          if (msg === 'Email ou senha inválidos') {
             toast = this.$toasted.show(
-              'Usuário ou senha inválidos. Tente novamente.',
+              'E-mail ou senha inválidos. Tente novamente.',
               {
                 type: 'error',
                 icon: 'error_outline',
@@ -116,7 +116,7 @@ label {
   font-weight: bold;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   padding: 10px 12px;
   border: 2px solid $lightgrey;
 
