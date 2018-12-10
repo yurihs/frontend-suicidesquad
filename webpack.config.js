@@ -11,11 +11,11 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 module.exports = (env, argv) => {
   let mode = argv.mode;
   let outputFilename = '[name].[hash].bundle.js'
-  let publicPath = '/'
+  let publicPath = '/static/'
   return {
     output: {
       publicPath: publicPath,
-      path: path.resolve(__dirname, 'dist/frontend'),
+      path: path.resolve(__dirname, 'dist/static/'),
       filename: outputFilename
     },
     module: {
