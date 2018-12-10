@@ -23,7 +23,11 @@ const store = new Vuex.Store({
     },
     setToken (state, token) {
       state.token = token
-      localStorage.setItem('token', token)
+      if (token === null) {
+        localStorage.removeItem('token')
+      } else {
+        localStorage.setItem('token', token)
+      }
     }
   },
   actions: {
