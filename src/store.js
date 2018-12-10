@@ -45,11 +45,8 @@ const store = new Vuex.Store({
           dispatch('obterPets')
         })
     },
-    criarPet ({dispatch}, data) {
+    cadastrarPet ({dispatch}, data) {
       return API.post('pets/', data)
-        .then(response => {
-          dispatch('obterPets')
-        })
     },
     login (context, {nome, password}) {
       return API.post(

@@ -11,9 +11,9 @@
 
       <li class="spacer"></li>
 
-      <router-link tag="li" :to="{name: 'criar_pet'}" class="novo-pet" v-if="user">
+      <router-link tag="li" :to="{name: 'cadastrar_pet'}" class="novo-pet" v-if="user">
         <a>
-          <span class="material-icons">add_circle_outline</span> Criar pet
+          <span class="material-icons">add_circle_outline</span> Cadastrar pet
         </a>
       </router-link>
       <li class="profile" v-if="user">

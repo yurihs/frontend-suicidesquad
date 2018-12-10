@@ -7,7 +7,7 @@ import 'nprogress/nprogress.css'
 
 import App from './views/App.vue'
 import Home from './views/Home.vue'
-import CriarPet from './views/CriarPet.vue'
+import CadastrarPet from './views/CadastrarPet.vue'
 import EditarPet from './views/EditarPet.vue'
 import NaoEncontrado from './views/NaoEncontrado.vue'
 import Login from './views/Login.vue'
@@ -47,10 +47,10 @@ const router = new VueRouter({
       meta: {title: 'Pets'}
     },
     {
-      path: '/criar_pet',
-      name: 'criar_pet',
-      component: CriarPet,
-      meta: {title: 'Criar pet'}
+      path: '/cadastrar_pet',
+      name: 'cadastrar_pet',
+      component: CadastrarPet,
+      meta: {title: 'Cadastrar pet'}
     },
     {
       path: '/editar_pet/:id',
