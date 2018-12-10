@@ -34,14 +34,18 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --mode development --progress --hot",
-    "start": "webpack --mode production --progress"
+    "build": "webpack --mode production --progress",
+    "heroku-postbuild": "npm install && npm run build",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "express": "^4.16.4",
     "jsonwebtoken": "^8.2.2",
     "libphonenumber-js": "^1.2.12",
     "normalize.css": "^8.0.0",
     "nprogress": "^0.2.0",
+    "serve-static": "^1.13.2",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vue-toasted": "^1.1.24",
