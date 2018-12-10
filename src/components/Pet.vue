@@ -6,7 +6,7 @@
     </div>
 
     <div class="metadados">
-      <div class="responsavel">{{ pet.usuario_nome }}</div>
+      <div class="publicador">{{ pet.usuario_nome }}</div>
       <div class="data">{{ pet.data }}</div>
     </div>
 
@@ -135,7 +135,7 @@ article {
     content: '―';
   }
 
-  .responsavel {
+  .publicador {
     font-weight: bold;
   }
   .data {

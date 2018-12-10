@@ -2,11 +2,6 @@
 <section>
   <form @submit.prevent="editar" v-if="loaded">
     <div class="input-group">
-      <label for="responsavel">Responsável</label>
-      <input required type="text" class="responsavel" name="responsavel" v-model="responsavel">
-    </div>
-
-    <div class="input-group">
       <label for="descricao">Mensagem</label>
       <textarea required name="descricao" v-model="descricao"></textarea>
     </div>
@@ -51,7 +46,6 @@ export default {
       original: null,
       loaded: false,
       id: null,
-      responsavel: null,
       descricao: null,
       telefones: [{}]
     }
@@ -80,7 +74,6 @@ export default {
   },
   methods: {
     carregar (pet) {
-      this.responsavel = pet.responsavel
       this.descricao = pet.descricao
       if (pet.telefones.length === 0) {
         this.telefones = [{}]
@@ -91,7 +84,6 @@ export default {
     editar () {
       let now = new Date().toISOString()
       let data = {
-        responsavel: this.responsavel,
         descricao: this.descricao,
         data: now,
         telefones: this.telefonesPreenchidos
@@ -124,8 +116,8 @@ export default {
       this.carregar(this.original)
     },
     confirmarRemover () {
-      if (confirm('Você tem certeza que quer remover esse pet de "' + this.original.responsavel + '"?')) {
-        this.remover(this.original.id, this.original.responsavel)
+      if (confirm('Você tem certeza que quer remover esse pet?')) {
+        this.remover(this.original.id)
           .then(() => this.$router.push({name: 'index'}))
       }
     },
@@ -204,7 +196,7 @@ fieldset.telefones {
   }
 }
 
-.responsavel {
+.publicador {
   width: 20em;
 }
 

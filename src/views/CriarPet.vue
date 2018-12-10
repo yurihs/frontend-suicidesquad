@@ -2,11 +2,6 @@
 <section>
   <form @submit.prevent="criar">
     <div class="input-group">
-      <label for="responsavel">Responsável</label>
-      <input required type="text" name="responsavel" v-model="responsavel">
-    </div>
-
-    <div class="input-group">
       <label for="descricao">Mensagem</label>
       <textarea required name="descricao" v-model="descricao"></textarea>
     </div>
@@ -44,7 +39,6 @@ export default {
   name: 'criar-pet',
   data () {
     return {
-      responsavel: null,
       descricao: null,
       telefones: [{}]
     }
@@ -62,7 +56,6 @@ export default {
     criar () {
       let now = new Date().toISOString()
       let data = {
-        responsavel: this.responsavel,
         descricao: this.descricao,
         data: now,
         telefones: this.telefonesPreenchidos
@@ -166,7 +159,7 @@ fieldset.telefones {
   }
 }
 
-.responsavel {
+.publicador {
   width: 20em;
 }
 
