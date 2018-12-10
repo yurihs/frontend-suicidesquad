@@ -9,9 +9,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = (env, argv) => {
-  let mode = argv.mode;
+  let mode = argv.mode
   let outputFilename = '[name].[hash].bundle.js'
-  let publicPath = '/static/'
+  let publicPath = '/'
+  if (mode === 'production') {
+    publicPath = '/static/'
+    outputFilename = '[name].[chunkhash].bundle.js'
+  }
   return {
     output: {
       publicPath: publicPath,
