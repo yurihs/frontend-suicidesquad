@@ -10,12 +10,8 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = (env, argv) => {
   let mode = argv.mode;
-  let outputFilename = '[name].[chunkhash].bundle.js';
-  let publicPath = '/js';
-  if (mode === 'development') {
-    outputFilename = '[name].[hash].bundle.js'
-    publicPath = '/'
-  }
+  let outputFilename = '[name].[hash].bundle.js'
+  let publicPath = '/'
   return {
     output: {
       publicPath: publicPath,
