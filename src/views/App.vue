@@ -1,6 +1,6 @@
 <template>
 <div>
-  <the-header v-if="user"></the-header>
+  <the-header></the-header>
   <div class="content">
     <router-view></router-view>
   </div>
@@ -26,8 +26,6 @@ export default {
       .catch(error => {
         if (error == 'Token is expired') {
           this.sessaoExpirada()
-        } else {
-          this.$router.push({name: 'login'})
         }
       })
   },
@@ -42,7 +40,6 @@ export default {
           duration: 5000
         }
       )
-      this.$router.push({name: 'login'})
     },
     sessaoExpiradaNoFuturo (timestamp) {
       let secondsToExpiration = timestamp - parseInt(Date.now() / 1000)

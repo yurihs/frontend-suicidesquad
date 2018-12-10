@@ -16,7 +16,7 @@
           <span class="material-icons">add_circle_outline</span> Criar pet
         </a>
       </router-link>
-      <li class="profile">
+      <li class="profile" v-if="user">
         <a tabindex="0">
           <span class="material-icons" v-if="userIsEditor">stars</span>
           <span class="material-icons" v-else>account_circle</span>
@@ -36,6 +36,11 @@
             </a>
           </router-link>
         </ul>
+      </li>
+      <li class="profile" v-else-if="$route.name !== 'login'">
+        <a @click="login">
+          Login
+        </a>
       </li>
     </ul>
   </nav>
@@ -62,6 +67,9 @@ export default {
           )
           this.$router.push({name: 'login'})
         })
+    },
+    login () {
+      this.$router.push('login')
     }
   }
 }

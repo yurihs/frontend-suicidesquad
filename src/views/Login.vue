@@ -6,7 +6,7 @@
   </div>
   <form @submit.prevent="login">
     <h1>Login</h1>
-    <div class="descricao">É necessário fazer login para acessar o site.</div>
+    <div class="descricao">É necessário fazer login para cadastrar um pet.</div>
     <div class="input-group">
       <label for="nome">Nome</label>
       <input required type="text" name="nome" v-model="nome">
