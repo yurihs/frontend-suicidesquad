@@ -57,7 +57,7 @@ export default {
         })
         .catch(error => this.handleError(error))
     },
-    handleError (error){
+    handleError (error) {
       if (error.response) {
         let msg = error.response.data.error
         this.$toasted.global.error(msg)

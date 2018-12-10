@@ -66,7 +66,7 @@ export default {
   computed: {
     telefonesPreenchidos () {
       return this.telefones.filter(t => {
-        if (Object.keys(t).length ==  0) { return false }
+        if (Object.keys(t).length === 0) { return false }
         if (t.numero.trim() === '') { return false }
         return true
       })

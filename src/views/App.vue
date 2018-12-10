@@ -24,7 +24,7 @@ export default {
     this.$store.dispatch('loadToken', localStorage.getItem('token'))
       .then(decoded => this.sessaoExpiradaNoFuturo(decoded.exp))
       .catch(error => {
-        if (error == 'Token is expired') {
+        if (error === 'Token is expired') {
           this.sessaoExpirada()
         }
       })
