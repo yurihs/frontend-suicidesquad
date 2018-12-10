@@ -64,7 +64,7 @@ export default {
               duration: 5000
             }
           )
-          this.$router.push({name: 'login'})
+          this.$router.push({name: 'index'})
         })
     },
     login () {
