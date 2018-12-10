@@ -179,7 +179,7 @@ a {
     // Hide text
     font-size: 0px;
     text-align: center;
-    justify-content: center;
+    justify-content: flex-end;
     .material-icons {
       // Show only icons
       font-size: 2rem;
