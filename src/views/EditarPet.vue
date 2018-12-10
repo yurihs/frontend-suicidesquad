@@ -1,29 +1,91 @@
 <template>
 <section>
-  <form @submit.prevent="editar" v-if="loaded">
+  <form @submit.prevent="editar">
     <div class="input-group">
-      <label for="descricao">Mensagem</label>
-      <textarea required id="descricao" v-model="descricao"></textarea>
+      <label for="categoria">Categoria</label>
+      <select required id="categoria" v-model="pet.categoria">
+        <option value="ACHADO">Achado</option>
+        <option value="PERDIDO">Perdido</option>
+        <option value="PARA_ADOCAO">Para adoção</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="tipo">Tipo</label>
+      <select required id="tipo" v-model="pet.tipo">
+        <option value="CACHORRO">Cachorro</option>
+        <option value="GATO">Gato</option>
+        <option value="EQUINO">Equino</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="porte">Porte</label>
+      <select required id="porte" v-model="pet.porte">
+        <option value="PEQUENO">Pequeno</option>
+        <option value="MEDIO">Médio</option>
+        <option value="GRANDE">Grande</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="comprimento_pelo">Comprimento do pelo</label>
+      <select required id="comprimento_pelo" v-model="pet.comprimento_pelo">
+        <option value="CURTO">Curto</option>
+        <option value="MEDIO">Médio</option>
+        <option value="LONGO">Longo</option>
+        <option value="SEM_PELO">Sem pelo</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="cores">Cores</label>
+      <select multiple id="cores" v-model="pet.cores">
+        <option value="MARROM">Marrom</option>
+        <option value="BRANCO">Branco</option>
+        <option value="PRETO">Preto</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <div class="input-group">
+        <label for="localizacao_bairro">Bairro</label>
+        <input required id="localizacao_bairro" type="text" v-model="pet.localizacao.bairro">
+      </div>
+      <div class="input-group">
+        <label for="localizacao_cidade">Cidade</label>
+        <input required id="localizacao_cidade" type="text" v-model="pet.localizacao.cidade">
+      </div>
+      <div class="input-group">
+        <label for="localizacao_uf">Estado</label>
+        <input required id="localizacao_uf" type="text" v-model="pet.localizacao.uf">
+      </div>
+    </div>
+    <div class="input-group">
+      <label for="descricao">Descrição</label>
+      <textarea id="descricao" v-model="pet.descricao"></textarea>
+    </div>
+    <div class="input-group">
+      <label for="sexo">Sexo</label>
+      <select id="sexo" v-model="pet.sexo">
+        <option value="NAO_INFORMADO">Não sei</option>
+        <option value="MACHO">Macho</option>
+        <option value="FEMEA">Femea</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="vacinacao">Estado da vacinação</label>
+      <select id="vacinacao" v-model="pet.vacinacao">
+        <option value="NAO_INFORMADO">Não sei</option>
+        <option value="PARCIAL">Parcial</option>
+        <option value="EM_DIA">Em dia</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="castracao">Estado da castração</label>
+      <select id="castracao" v-model="pet.castracao">
+        <option value="NAO_INFORMADO">Não sei</option>
+        <option value="NAO_CASTRADO">Não castrado</option>
+        <option value="CASTRADO">Castrado</option>
+      </select>
     </div>
 
-    <fieldset class="telefones">
-      <legend>Telefones</legend>
-      <div class="input-group" v-for="(telefone, index) in telefones" :key="index">
-        <a @click="removerTelefone(index)" class="remover-telefone" title="Remover telefone" :class="{first: index === 0}">
-          <span class="material-icons">remove_circle</span>
-        </a>
-        <input type="tel" class="numero" placeholder="(00) 00000-0000" @input="verificarTelefone($event, index)" pattern="[()0-9 \-]{8,}" v-model="telefone.numero">
-        <input type="text" class="descricao" placeholder="Operadora?" v-model="telefone.descricao">
-      </div>
-      <a @click="adicionarTelefone" class="adicionar-telefone" title="Adicionar telefone">
-        <span class="material-icons">add_circle</span>
-      </a>
-    </fieldset>
-
     <div class="botoes">
-      <button class="desfazer" @click.prevent="desfazerMudancas">
-        <span class="material-icons">undo</span>Desfazer mudanças
-      </button>
       <button class="remover" @click.prevent="confirmarRemover">
         <span class="material-icons">delete</span>Remover
       </button>
@@ -37,58 +99,55 @@
 
 <script>
 import API from '../api-common'
-import { isValidNumber } from 'libphonenumber-js'
 
 export default {
   name: 'editar-pet',
   data () {
     return {
-      original: null,
-      loaded: false,
       id: null,
-      descricao: null,
-      telefones: [{}]
+      pet: {
+        categoria: null,
+        tipo: null,
+        porte: null,
+        comprimento_pelo: null,
+        sexo: null,
+        cores: [],
+        localizacao: {
+          bairro: null,
+          cidade: null,
+          uf: null
+        },
+        vacinacao: null,
+        castracao: null,
+        descricao: null
+      }
     }
   },
   created () {
     this.id = this.$route.params.id
     API.get('pets/' + this.id)
       .then(response => {
-        let pet = response.data
-        this.original = pet
-        this.carregar(pet)
-        this.loaded = true
+        this.carregar(response.data)
       })
-      .catch(error => {
+      .catch(() => {
         this.$toasted.global.error('O pet que você tentou acessar não existe.')
       })
   },
   computed: {
-    telefonesPreenchidos () {
-      return this.telefones.filter(t => {
-        if (Object.keys(t).length === 0) { return false }
-        if (t.numero.trim() === '') { return false }
-        return true
-      })
-    }
   },
   methods: {
     carregar (pet) {
-      this.descricao = pet.descricao
-      if (pet.telefones.length === 0) {
-        this.telefones = [{}]
-      } else {
-        this.telefones = pet.telefones.map(x => Object.assign({}, x))
+      this.pet = pet
+      if (this.pet.localizacao === null) {
+        this.pet.localizacao = {
+          bairro: '',
+          cidade: '',
+          uf: ''
+        }
       }
     },
     editar () {
-      let now = new Date().toISOString()
-      let data = {
-        descricao: this.descricao,
-        data: now,
-        telefones: this.telefonesPreenchidos
-      }
-      this.$store.dispatch('editarPet', {id: this.id, data: data})
+      this.$store.dispatch('editarPet', {id: this.id, pet: this.pet})
         .then(response => {
           this.$toasted.show(
             'Pet salvo.',
@@ -106,29 +165,10 @@ export default {
           }
         })
     },
-    adicionarTelefone () {
-      this.telefones.push({})
-    },
-    removerTelefone (index) {
-      this.telefones.splice(index, 1)
-    },
-    desfazerMudancas () {
-      this.carregar(this.original)
-    },
     confirmarRemover () {
       if (confirm('Você tem certeza que quer remover esse pet?')) {
-        this.remover(this.original.id)
+        this.remover(this.id)
           .then(() => this.$router.push({name: 'index'}))
-      }
-    },
-    verificarTelefone (event, index) {
-      let numero = this.telefones[index].numero
-      let isValid = isValidNumber(numero, 'BR')
-
-      if (numero.length >= 8 && !isValid) {
-        event.target.setCustomValidity('Número inválido')
-      } else {
-        event.target.setCustomValidity('')
       }
     }
   }
@@ -156,7 +196,7 @@ textarea {
   min-width: 100%;
   height: 100px;
 }
-input[type=text], input[type=tel], textarea {
+input[type=text], textarea {
   padding: 10px 12px;
   border: 2px solid $lightgrey;
 
@@ -167,32 +207,6 @@ input[type=text], input[type=tel], textarea {
   &:invalid {
     border-color: $error;
     box-shadow: 0 0 5px $error;
-  }
-}
-
-fieldset.telefones {
-  margin-bottom: 3em;
-  border: none;
-  padding: 0;
-
-  .numero {
-    width: 10em;
-    margin-right: 1em;
-  }
-  .descricao {
-    width: 7em;
-  }
-
-  .adicionar-telefone, .remover-telefone {
-    color: $darkgrey;
-    line-height: 0;
-  }
-  .remover-telefone {
-    margin-right: 0.5em;
-
-    &.first{
-      visibility: hidden;
-    }
   }
 }
 
@@ -218,13 +232,6 @@ fieldset.telefones {
     }
   }
 
-  .desfazer {
-    background: $btnSecondary;
-
-    &:hover, &:active {
-      background: darken($btnSecondary, 8);
-    }
-  }
   .remover{
     background: $btnDanger;
 

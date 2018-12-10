@@ -39,11 +39,8 @@ const store = new Vuex.Store({
           dispatch('obterPets')
         })
     },
-    editarPet ({dispatch}, {id, data}) {
-      return API.put('pets/' + id, data)
-        .then(response => {
-          dispatch('obterPets')
-        })
+    editarPet ({dispatch}, {id, pet}) {
+      return API.put('pets/' + id, pet)
     },
     cadastrarPet ({dispatch}, data) {
       return API.post('pets/', data)
