@@ -4,7 +4,7 @@
     v-for="pet in pets"
     :key="pet.id"
     :pet="pet"
-    :botaoEditar="userIsEditor">
+    :botaoEditar="userIsPublicador">
   </pet>
 </section>
 </template>

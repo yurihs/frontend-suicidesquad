@@ -3,8 +3,8 @@ const userMixin = {
     user () {
       return this.$store.getters.user
     },
-    userIsEditor () {
-      return this.user ? this.user.isEditor : false
+    userIsPublicador () {
+      return this.user && this.pet ? this.user.id === this.pet.usuario_id : false
     }
   }
 }

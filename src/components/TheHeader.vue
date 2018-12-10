@@ -11,15 +11,14 @@
 
       <li class="spacer"></li>
 
-      <router-link tag="li" :to="{name: 'criar_pet'}" class="novo-pet" v-if="userIsEditor">
+      <router-link tag="li" :to="{name: 'criar_pet'}" class="novo-pet" v-if="user">
         <a>
           <span class="material-icons">add_circle_outline</span> Criar pet
         </a>
       </router-link>
       <li class="profile" v-if="user">
         <a tabindex="0">
-          <span class="material-icons" v-if="userIsEditor">stars</span>
-          <span class="material-icons" v-else>account_circle</span>
+          <span class="material-icons">account_circle</span>
           {{ user.nome }}
         </a>
         <ul class="dropdown">
