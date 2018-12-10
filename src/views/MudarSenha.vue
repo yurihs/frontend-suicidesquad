@@ -4,11 +4,11 @@
     <h1>Mudar senha</h1>
     <div class="input-group">
       <label for="senhaAtual">Senha atual</label>
-      <input required type="password" name="senhaAtual" v-model="senhaAtual">
+      <input required type="password" id="senhaAtual" v-model="senhaAtual">
     </div>
     <div class="input-group">
       <label for="novaSenha">Nova senha</label>
-      <input required type="password" name="novaSenha" v-model="novaSenha">
+      <input required type="password" id="novaSenha" v-model="novaSenha">
     </div>
 
     <div class="botoes">

@@ -3,7 +3,7 @@
   <form @submit.prevent="editar" v-if="loaded">
     <div class="input-group">
       <label for="descricao">Mensagem</label>
-      <textarea required name="descricao" v-model="descricao"></textarea>
+      <textarea required id="descricao" v-model="descricao"></textarea>
     </div>
 
     <fieldset class="telefones">

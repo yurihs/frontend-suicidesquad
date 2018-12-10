@@ -9,12 +9,12 @@
     <div class="descricao">É necessário fazer login para cadastrar um pet.</div>
     <div class="input-group">
       <label for="nome">Nome</label>
-      <input required type="text" name="nome" v-model="nome">
+      <input required type="text" id="nome" v-model="nome">
     </div>
 
     <div class="input-group">
       <label for="password">Senha</label>
-      <input required type="password" name="password" v-model="password">
+      <input required type="password" id="password" v-model="password">
     </div>
 
     <div class="botoes">
