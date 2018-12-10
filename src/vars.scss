@@ -1,17 +1,17 @@
 // Color pallete
 $dark:      hsla(229%,  19%,  22%, 1);
-$darkgrey:  hsla(218%,  19%,  38%, 1);
+$darkgrey:  #532586;
 $lightgrey: hsla(180%,   1%,  75%, 1);
 $light:     hsla(  0%,   0%, 100%, 1);
-$accent:    hsla( 18%,  83%,  63%, 1);
+$accent:    #6EBF80;
 
 $error:     hsla(  4%,  83%,  63%, 1);
 
 $text: darken($darkgrey, 28);
 $heading: darken($text, 10);
 
-$btnPrimary: #f15d1e;
-$btnSecondary: #8a94a6;
+$btnPrimary: #532586;
+$btnSecondary: #AE75A5;
 $btnDanger: #e16960;
 
-$progressBar: complement($accent);
+$progressBar: #AE75A5;

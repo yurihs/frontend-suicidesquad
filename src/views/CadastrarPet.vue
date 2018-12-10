@@ -1,7 +1,7 @@
 <template>
 <section>
   <form @submit.prevent="cadastrar">
-    <step-indicator class="indicador-etapas" :current="etapa" :total="3" current-color="#f15d1e" default-color="#8a94a6" :handle-click="setEtapa" ></step-indicator>
+    <step-indicator class="indicador-etapas" :current="etapa" :total="3" current-color="#6EBF80" default-color="#8a94a6" :handle-click="setEtapa" ></step-indicator>
     <div v-show="etapa === 0">
       <div class="info-etapa">
         Nos conte um pouco sobre a sua situação.
