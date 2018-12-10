@@ -69,15 +69,15 @@
 
       <div class="input-group">
         <label for="localizacao_bairro">Bairro</label>
-        <input type="text" id="localizacao_bairro" v-model="pet.localizacao.bairro">
+        <input required type="text" id="localizacao_bairro" v-model="pet.localizacao.bairro">
       </div>
       <div class="input-group">
         <label for="localizacao_cidade">Cidade</label>
-        <input type="text" id="localizacao_cidade" v-model="pet.localizacao.cidade">
+        <input required type="text" id="localizacao_cidade" v-model="pet.localizacao.cidade">
       </div>
       <div class="input-group">
         <label for="localizacao_uf">Estado</label>
-        <input type="text" id="localizacao_uf" v-model="pet.localizacao.uf">
+        <input required type="text" id="localizacao_uf" v-model="pet.localizacao.uf">
       </div>
 
       <div class="botoes">
