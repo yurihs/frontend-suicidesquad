@@ -43,8 +43,7 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'index',
-      component: Home,
-      meta: {title: 'Pets'}
+      component: Home
     },
     {
       path: '/cadastrar_pet',
