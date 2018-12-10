@@ -3,9 +3,8 @@
   <nav>
     <ul class="menu">
       <router-link tag="li" :to="{name: 'index'}" class="title">
-          <a>
-            <span class="material-icons">home</span>
-            404 Pets
+          <a class="logo">
+            <img src="../images/logo_404pets_white.png" alt="Logo 404 Pets">
           </a>
       </router-link>
 
@@ -185,6 +184,30 @@ a {
       font-size: 2rem;
       line-height: 1.6;
       margin-right: 0;
+    }
+  }
+}
+
+
+.title {
+  border-bottom: none;
+  &:hover {
+    border-bottom: none;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    margin: 0.4em 0 0.4em 0.8em;
+    padding: 0;
+
+    &:hover {
+      background: initial;
+    }
+
+    img {
+      max-width: 100%;
     }
   }
 }

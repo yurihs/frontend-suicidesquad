@@ -1,8 +1,7 @@
 <template>
 <section>
   <div class="logo">
-    <!-- <img src="~../images/logo.svg" alt="404 Pets"> -->
-    404 Pets
+     <img src="../images/logo_404pets_purple.png" alt="404 Pets">
   </div>
   <form @submit.prevent="login">
     <h1>Login</h1>
@@ -77,12 +76,13 @@ $logo: adjust-color($darkgrey, $lightness: -20%, $saturation: 20%);
 
 .logo {
   text-align: center;
-  font-size: 5.5em;
   white-space: nowrap;
-  font-family: Yellowtail;
   color: $logo;
   margin-top: 0.6em;
   margin-bottom: 0.2em;
+  img {
+    max-width: 250px;
+  }
 }
 
 form {
