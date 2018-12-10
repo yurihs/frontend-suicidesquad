@@ -111,7 +111,7 @@ li {
     visibility: hidden;
   }
   &:hover {
-    border-bottom-color: lighten($darkgrey, 8);
+    border-bottom-color: $accent;
   }
 }
 a {
