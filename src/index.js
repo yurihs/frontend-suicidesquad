@@ -8,6 +8,7 @@ import 'nprogress/nprogress.css'
 import App from './views/App.vue'
 import Home from './views/Home.vue'
 import CadastrarPet from './views/CadastrarPet.vue'
+import CadastrarUsuario from './views/CadastrarUsuario'
 import EditarPet from './views/EditarPet.vue'
 import NaoEncontrado from './views/NaoEncontrado.vue'
 import Login from './views/Login.vue'
@@ -67,6 +68,15 @@ const router = new VueRouter({
       component: Login,
       meta: {
         title: 'Login',
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/cadastrar_usuario',
+      name: 'cadastrar_usuario',
+      component: CadastrarUsuario,
+      meta: {
+        title: 'Cadastro',
         requiresAuth: false
       }
     },

@@ -63,6 +63,9 @@ const store = new Vuex.Store({
     cadastrarPet ({dispatch}, data) {
       return API.post('pets/', data)
     },
+    cadastrarUsuario ({dispatch}, data) {
+      return API.post('usuarios', data)
+    },
     login (context, {email, password}) {
       return API.post(
         'auth/email',
