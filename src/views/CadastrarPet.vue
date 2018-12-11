@@ -95,6 +95,12 @@
         Está quase acabando! Para facilitar o processo, por favor insira algumas informações adicionais.
       </div>
       <div class="input-group">
+        <label for="nome" v-if="pet.categoria === 'ACHADO'">O pet tem um nome?</label>
+        <label for="nome" v-else-if="pet.categoria === 'PERDIDO'">O pet responde por qual nome?</label>
+        <label for="nome" v-else>Qual nome do pet?</label>
+        <input type="text" id="nome" v-model="pet.nome">
+      </div>
+      <div class="input-group">
         <label>Sexo do pet</label>
         <div class="radio-group">
           <input checked type="radio" id="sexo_nao_informado" value="NAO_INFORMADO" name="sexo" v-model="pet.sexo">
@@ -183,6 +189,7 @@ export default {
         },
         vacinacao: 'NAO_INFORMADO',
         castracao: 'NAO_INFORMADO',
+        nome: null,
         descricao: null
       }
     }

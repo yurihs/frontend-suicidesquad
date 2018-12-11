@@ -57,6 +57,10 @@
       </div>
     </div>
     <div class="input-group">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" v-model="pet.nome">
+    </div>
+    <div class="input-group">
       <label for="descricao">Descrição</label>
       <textarea id="descricao" v-model="pet.descricao"></textarea>
     </div>
@@ -119,6 +123,7 @@ export default {
         },
         vacinacao: null,
         castracao: null,
+        nome: null,
         descricao: null
       }
     }
