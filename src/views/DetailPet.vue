@@ -5,15 +5,26 @@
                 <img src="https://images.dog.ceo/breeds/weimaraner/n02092339_2731.jpg" alt="">
             </div>
             <div class="metadados">
-                Categoria: {{ pet.categoria }} <br>
-                Tipo: {{ pet.tipo }} <br>
-                Porte: {{ pet.porte }} <br>
-                Raça: {{ pet.raca }} <br>
-                Comprimento do pelo: {{ pet.comprimento_pelo }} <br>
-                Sexo: {{ pet.sexo }} <br>
-                Cores: {{ pet.cores.join(', ') }} <br>
-                Vacinação {{ pet.vacinacao }} <br>
-                Castração {{ pet.castracao }} <br>
+                <div class="metadados-importantes">
+                    <div class="metadado-importante metadado-tipo" :data-value="this.pet.tipo">{{ metadadoTipo }}</div>
+                    <div class="metadado-importante metadado-categoria" :data-value="this.pet.categoria">{{ metadadoCategoria }}</div>
+                </div>
+                <div class="metadados-extra">
+                    <div class="metadado-key">Porte</div>
+                    <div class="metadado-value">{{ metadadoPorte}}</div>
+                    <div class="metadado-key">Raça</div>
+                    <div class="metadado-value">{{ metadadoRaca }}</div>
+                    <div class="metadado-key">Comprimento do pelo</div>
+                    <div class="metadado-value">{{ metadadoComprimentoPelo }}</div>
+                    <div class="metadado-key">Sexo</div>
+                    <div class="metadado-value">{{ metadadoSexo }}</div>
+                    <div class="metadado-key">Cores</div>
+                    <div class="metadado-value">{{ metadadoCores }}</div>
+                    <div class="metadado-key">Estado da vacinação</div>
+                    <div class="metadado-value">{{ metadadoVacinacao }}</div>
+                    <div class="metadado-key">Estado da castração</div>
+                    <div class="metadado-value">{{ metadadoCastracao }}</div>
+                </div>
             </div>
             <div class="descricao" v-if="pet.descricao">
                 {{ pet.descricao }}
@@ -44,7 +55,7 @@
                         <span v-if="index === 0" slot="others" class="material-icons registro-atual">stars</span>
                         <span v-else slot="others" class="material-icons registro-anterior">trip_origin</span>
                         <div class="situacao">{{ registro.situacao.toLowerCase() }}</div>
-                        <div class="data">{{ registro.data }}</div>
+                        <div class="data">{{ new Date(registro.data).toLocaleString() }}</div>
                     </timeline-item>
                 </timeline>
             </div>
@@ -108,6 +119,113 @@ export default {
           this.$toasted.global.error(error.message)
         }
       })
+  },
+  computed: {
+    metadadoTipo () {
+      if (this.pet.tipo === 'CACHORRO') {
+        return 'Cachorro'
+      }
+      if (this.pet.tipo === 'GATO') {
+        return 'Gato'
+      }
+      if (this.pet.tipo === 'EQUINO') {
+        return 'Equino'
+      }
+      return this.pet.tipo ? this.pet.tipo.toLowerCase() : null
+    },
+    metadadoCategoria () {
+      if (this.pet.categoria === 'ACHADO') {
+        return 'Achado'
+      }
+      if (this.pet.categoria === 'PERDIDO') {
+        return 'Perdido'
+      }
+      if (this.pet.categoria === 'PARA_ADOCAO') {
+        return 'Para adoção'
+      }
+      return this.pet.tipo ? this.pet.tipo.toLowerCase() : null
+    },
+    metadadoPorte () {
+      if (this.pet.porte === 'PEQUENO') {
+        return 'Pequeno'
+      }
+      if (this.pet.porte === 'MEDIO') {
+        return 'Médio'
+      }
+      if (this.pet.porte === 'GRANDE') {
+        return 'Grande'
+      }
+      return this.pet.porte ? this.pet.porte.toLowerCase() : null
+    },
+    metadadoRaca () {
+      if (this.pet.raca === null) {
+        return null
+      }
+      if (this.pet.raca.endsWith('_SRD')) {
+        return 'Sem raça definida (SRD)'
+      }
+      let raca = this.pet.raca.toLowerCase().replace('_', ' ')
+      raca = raca.charAt(0).toUpperCase() + raca.slice(1)
+      return raca
+    },
+    metadadoComprimentoPelo () {
+      if (this.pet.comprimento_pelo === 'CURTO') {
+        return 'Curto'
+      }
+      if (this.pet.comprimento_pelo === 'MEDIO') {
+        return 'Médio'
+      }
+      if (this.pet.comprimento_pelo === 'LONGO') {
+        return 'Longo'
+      }
+      if (this.pet.comprimento_pelo === 'SEM_PELO') {
+        return 'Sem pelo'
+      }
+      return this.pet.comprimento_pelo ? this.pet.comprimento_pelo.toLowerCase() : null
+    },
+    metadadoSexo () {
+      if (this.pet.sexo === 'NAO_INFORMADO') {
+        return 'Não informado'
+      }
+      if (this.pet.sexo === 'MACHO') {
+        return 'Macho'
+      }
+      if (this.pet.sexo === 'FEMEA') {
+        return 'Fêmea'
+      }
+      return this.pet.sexo ? this.pet.sexo.toLowerCase() : null
+    },
+    metadadoCores () {
+      if (this.pet.cores === null || this.pet.cores.length === 0) {
+        return 'Não informadas'
+      }
+      let cores = this.pet.cores.map(cor => cor.toLowerCase()).join(', ')
+      return cores.charAt(0).toUpperCase() + cores.slice(1)
+    },
+    metadadoVacinacao () {
+      if (this.pet.vacinacao === 'NAO_INFORMADO') {
+        return 'Não informado'
+      }
+      if (this.pet.vacinacao === 'PARCIAL') {
+        return 'Parcial'
+      }
+      if (this.pet.vacinacao === 'EM_DIA') {
+        return 'Em dia'
+      }
+      return this.pet.vacinacao ? this.pet.vacinacao.toLowerCase() : null
+    },
+    metadadoCastracao () {
+      if (this.pet.castracao === 'NAO_INFORMADO') {
+        return 'Não informado'
+      }
+      if (this.pet.castracao === 'NAO_CASTRADO') {
+        return 'Não castrado'
+      }
+      if (this.pet.castracao === 'CASTRADO') {
+        return 'Castrado'
+      }
+      return this.pet.castracao ? this.pet.castracao.toLowerCase() : null
+    }
   }
 }
 </script>
@@ -129,7 +247,6 @@ export default {
         grid-area: imagens;
         box-shadow: 0 15px 35px rgba(50, 50, 93, 0.10),
         0  5px 15px rgba( 0,  0,  0, 0.07);
-        padding: 1em;
         img {
             width: 100%;
         }
@@ -138,7 +255,40 @@ export default {
         grid-area: metadados;
         box-shadow: 0 15px 35px rgba(50, 50, 93, 0.10),
         0  5px 15px rgba( 0,  0,  0, 0.07);
-        padding: 1em;
+
+        .metadados-importantes {
+            display: grid;
+            height: 50px;
+            grid-template-columns: 1fr 1fr;
+
+            .metadado-importante {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                font-weight: bold;
+            }
+            .metadado-tipo {
+                background-color: $darkgrey;
+                color: white;
+            }
+            .metadado-categoria {
+                background-color: lighten($darkgrey, 10);
+                color: white;
+            }
+        }
+
+        .metadados-extra {
+            padding: 1em;
+
+            .metadado-key {
+                font-weight: bold;
+                margin-bottom: 0.1em;
+            }
+            .metadado-value {
+                margin-bottom: 1em;
+            }
+        }
     }
     .descricao {
         grid-area: descricao;
