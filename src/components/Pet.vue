@@ -1,5 +1,7 @@
 <template>
 <article :class="{'sem-botoes': !temBotoes}">
+    <div class="thumbnail" v-bind:style="{ 'background-image': 'url(' + thumbnail + ')' }">
+    </div>
     <div class="mensagem">
         {{ pet.tipo }} {{ pet.categoria }} {{ pet.raca }} {{ pet.nome }}
         {{ pet.descricao }}
@@ -10,7 +12,7 @@
       <div class="data">{{ pet.data }}</div>
     </div>
 
-    <div class="botoes">
+    <div class="botoes" v-if="temBotoes">
       <router-link :to="{name: 'editar_pet', params: { id: pet.id }}" v-if="botaoEditar" title="Editar">
         <span class="material-icons">edit</span>
       </router-link>
@@ -22,6 +24,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'pet',
@@ -65,11 +68,22 @@ export default {
       default: false
     }
   },
+  data () {
+    return {
+      thumbnail: ''
+    }
+  },
   computed: {
     temBotoes () {
       let botoes = [this.botaoEditar, this.botaoRemover]
       return botoes.some((x) => x)
     }
+  },
+  mounted () {
+    axios.create().get('https://dog.ceo/api/breeds/image/random')
+      .then(response => {
+        this.thumbnail = response.data.message
+      })
   }
 }
 </script>
@@ -77,9 +91,9 @@ export default {
 <style lang="scss" scoped>
 article {
   display: grid;
-  grid-template-areas: 'mensagem botoes'
-              'metadados botoes';
-  grid-template-columns: auto 4em;
+  grid-template-areas: 'thumbnail mensagem botoes'
+                       'thumbnail metadados botoes';
+  grid-template-columns:  8em auto 4em;
   box-shadow: 0 15px 35px rgba(50, 50, 93, 0.10),
               0  5px 15px rgba( 0,  0,  0, 0.07);
   margin-bottom: 2em;
@@ -90,10 +104,18 @@ article {
                 0  8px 15px rgba( 0,  0,  0, 0.07);
   }
   &.sem-botoes {
-    grid-template-areas: 'mensagem'
+    grid-template-areas: 'thumbnail'
+                         'mensagem'
                          'metadados';
     grid-template-columns: auto;
+    grid-template-rows: 4fr 1fr auto;
   }
+}
+
+.thumbnail {
+    grid-area: thumbnail;
+    background-size: cover;
+    background-position: center center;
 }
 
 .mensagem {
@@ -181,7 +203,8 @@ article {
 }
 @media (max-width: 500px) {
   article {
-    grid-template-areas: 'mensagem'
+    grid-template-areas: 'thumbnail'
+                         'mensagem'
                          'metadados'
                          'botoes';
     grid-template-columns: auto;
