@@ -21,32 +21,40 @@
           </div>
       </div>
       <div class="input-group">
-        <span>Meu pet é um</span>
-        <select required id="tipo" v-model="pet.tipo">
-          <option value="CACHORRO">cachorro</option>
-          <option value="GATO">gato</option>
-          <option value="EQUINO">equino</option>
-        </select>
-        <span>de porte</span>
-        <select required id="porte" v-model="pet.porte">
-          <option value="PEQUENO">pequeno</option>
-          <option value="MEDIO">medio</option>
-          <option value="GRANDE">grande</option>
-        </select>
-        <span>de pelos</span>
-        <select required id="comprimento_pelo" v-model="pet.comprimento_pelo">
-          <option value="CURTO">curtos</option>
-          <option value="MEDIO">medios</option>
-          <option value="LONGO">longos</option>
-          <option value="SEM_PELO">(sem pelos)</option>
-        </select>
-        <span>e de cores</span>
-        <select multiple id="cor(es)" v-model="pet.cores">
-          <option value="MARROM">marrom</option>
-          <option value="BRANCO">branco</option>
-          <option value="PRETO">preto</option>
-        </select>
-        <span>.</span>
+        <div class="mobile-group">
+          <span>Meu pet é um</span>
+          <select required id="tipo" v-model="pet.tipo">
+            <option value="CACHORRO">cachorro</option>
+            <option value="GATO">gato</option>
+            <option value="EQUINO">equino</option>
+          </select>
+        </div>
+        <div class="mobile-group">
+          <span>de porte</span>
+          <select required id="porte" v-model="pet.porte">
+            <option value="PEQUENO">pequeno</option>
+            <option value="MEDIO">medio</option>
+            <option value="GRANDE">grande</option>
+          </select>
+        </div>
+        <div class="mobile-group">
+          <span>de pelos</span>
+          <select required id="comprimento_pelo" v-model="pet.comprimento_pelo">
+            <option value="CURTO">curtos</option>
+            <option value="MEDIO">medios</option>
+            <option value="LONGO">longos</option>
+            <option value="SEM_PELO">(sem pelos)</option>
+          </select>
+        </div>
+        <div class="mobile-group">
+          <span>e de cores</span>
+          <select multiple id="cor(es)" v-model="pet.cores">
+            <option value="MARROM">marrom</option>
+            <option value="BRANCO">branco</option>
+            <option value="PRETO">preto</option>
+          </select>
+          <span>.</span>
+        </div>
       </div>
 
       <div class="botoes">
@@ -314,6 +322,10 @@ export default {
   margin-bottom: 2.5em;
 }
 
+.mobile-group {
+  display: inline;
+}
+
 fieldset .input-group {
   display: flex;
   align-items: center;
@@ -399,6 +411,19 @@ input[type=text], textarea {
     button {
       margin-left: 0;
       margin-bottom: 1em;
+    }
+  }
+  .mobile-group {
+    display: flex;
+    margin-bottom: 1.5em;
+
+    span {
+      display: block;
+      margin-right: 1em;
+    }
+
+    select {
+      flex: 1
     }
   }
 }
