@@ -198,7 +198,7 @@ a {
     // Hide text
     font-size: 0px;
     text-align: center;
-    justify-content: flex-end;
+    justify-content: center;
     .material-icons {
       // Show only icons
       font-size: 2rem;
@@ -209,6 +209,9 @@ a {
 }
 
 .title {
+  display: flex;
+  align-items: center;
+  padding: 0 1em;
   border-bottom: none;
   &:hover {
     border-bottom: none;
