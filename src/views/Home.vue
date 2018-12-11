@@ -54,7 +54,7 @@ export default {
     return {
       pesquisa: {
         tipo: 'CACHORRO',
-        categoria: 'ACHADO',
+        categoria: 'PERDIDO',
         porte: null
       }
     }
@@ -76,7 +76,15 @@ export default {
   },
   methods: {
     carregarPets () {
-      return this.$store.dispatch('pesquisarPets', this.pesquisa)
+      let pesquisaJson = {}
+      pesquisaJson.tipo = this.pesquisa.tipo
+      if (this.pesquisa.categoria) {
+        pesquisaJson.categorias = [this.pesquisa.categoria]
+      }
+      if (this.pesquisa.porte) {
+        pesquisaJson.portes = [this.pesquisa.porte]
+      }
+      return this.$store.dispatch('pesquisarPets', pesquisaJson)
         .catch(() => {
           if (this.user) {
             this.$toasted.global.server_error()
