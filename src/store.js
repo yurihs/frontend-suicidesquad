@@ -10,16 +10,24 @@ const store = new Vuex.Store({
   state: {
     pets: [],
     token: null,
-    user: {}
+    usuario: null
   },
   getters: {
     pets: state => state.pets,
     token: state => state.token,
-    user: state => jwt.decode(state.token)
+    usuario: state => state.usuario
   },
   mutations: {
     setPets (state, pets) {
       state.pets = pets
+    },
+    setUsuario (state, usuario) {
+      state.usuario = usuario
+      if (usuario === null) {
+        localStorage.removeItem('usuario')
+      } else {
+        localStorage.setItem('usuario', JSON.stringify(usuario))
+      }
     },
     setToken (state, token) {
       state.token = token
@@ -56,16 +64,20 @@ const store = new Vuex.Store({
       )
         .then(response => {
           let token = response.data.token
+          let usuario = response.data.usuario
           context.commit('setToken', token)
+          context.commit('setUsuario', usuario)
           return token
         })
         .catch(error => {
           context.commit('setToken', null)
+          context.commit('setUsuario', null)
           throw error
         })
     },
     logout (context) {
       context.commit('setToken', null)
+      context.commit('setUsuario', null)
     },
     loadToken (context, token) {
       return new Promise(function (resolve, reject) {
@@ -80,6 +92,26 @@ const store = new Vuex.Store({
         } else {
           context.commit('setToken', null)
           return reject(new Error('Token is expired'))
+        }
+      })
+    },
+    loadUsuario (context, usuario) {
+      return new Promise(function (resolve, reject) {
+        if (usuario === null) {
+          return reject(new Error('Token is null'))
+        }
+        let parsed
+        try {
+          parsed = JSON.parse(usuario)
+        } catch (e) {
+          parsed = null
+        }
+        if (parsed === null) {
+          context.commit('setUsuario', null)
+          return reject(new Error('Usuario is invalid'))
+        } else {
+          context.commit('setUsuario', parsed)
+          return resolve(parsed)
         }
       })
     }

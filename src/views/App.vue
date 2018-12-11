@@ -23,6 +23,7 @@ export default {
   created () {
     this.$store.dispatch('loadToken', localStorage.getItem('token'))
       .then(decoded => this.sessaoExpiradaNoFuturo(decoded.exp))
+      .then(() => this.$store.dispatch('loadUsuario', localStorage.getItem('usuario')))
       .catch(error => {
         if (error === 'Token is expired') {
           this.sessaoExpirada()
@@ -32,6 +33,7 @@ export default {
   methods: {
     sessaoExpirada () {
       this.$store.commit('setToken', null)
+      this.$store.commit('setUsuario', null)
       this.$toasted.show(
         'Sua sessão expirou. Por favor, faça login novamente.',
         {
