@@ -192,7 +192,6 @@ export default {
     return {
       etapa: 0,
       mapbox: {
-        map: null,
         options: {
           style: 'mapbox://styles/mapbox/light-v9'
         }
@@ -231,7 +230,7 @@ export default {
     setEtapa (etapa) {
       this.etapa = etapa
       if (etapa === 1) {
-        setTimeout(() => this.map.resize(), 100)
+        setTimeout(() => this.$_map.resize(), 100)
       }
     },
     cadastrar () {
@@ -257,7 +256,8 @@ export default {
       return MAPBOX_ACCESS_TOKEN
     },
     mapLoaded (map) {
-      this.map = map
+      console.log(map)
+      this.$_map = map
     },
     mapClicked (map, event) {
       if (this.$_marker === null) {
