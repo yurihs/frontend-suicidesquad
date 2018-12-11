@@ -84,6 +84,18 @@ const store = new Vuex.Store({
           throw error
         })
     },
+    loginComFacebookAccessToken (context, accessToken) {
+      return API.post('auth/facebook/logar_com_access_token', {
+        access_token: accessToken
+      }).then(response => {
+        context.commit('setToken', response.data.token)
+        context.commit('setUsuario', response.data.usuario)
+      }).catch(error => {
+        context.commit('setToken', null)
+        context.commit('setUsuario', null)
+        throw error
+      })
+    },
     logout (context) {
       context.commit('setToken', null)
       context.commit('setUsuario', null)

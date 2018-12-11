@@ -41,6 +41,12 @@
           Login
         </a>
       </li>
+      <li class="profile" v-show="user === null">
+        <a @click="loginComFacebook">
+          <span class="material-icons">exit_to_app</span>
+          Login com Facebook
+        </a>
+      </li>
       <li class="profile" v-show="user === null && $route.name !== 'cadastrar_usuario'">
         <a @click="cadastrarUsuario">
           <span class="material-icons">add</span>
@@ -54,6 +60,7 @@
 
 <script>
 import userMixin from '../mixins/user'
+import {backendURL} from '../config'
 
 export default {
   name: 'the-header',
@@ -75,6 +82,9 @@ export default {
     },
     login () {
       this.$router.push({name: 'login'})
+    },
+    loginComFacebook () {
+      window.location = backendURL + 'auth/facebook/authorization'
     },
     cadastrarUsuario () {
       this.$router.push({name: 'cadastrar_usuario'})
@@ -197,7 +207,6 @@ a {
     }
   }
 }
-
 
 .title {
   border-bottom: none;

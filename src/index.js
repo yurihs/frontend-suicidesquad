@@ -14,6 +14,7 @@ import NaoEncontrado from './views/NaoEncontrado.vue'
 import Login from './views/Login.vue'
 import MudarSenha from './views/MudarSenha.vue'
 import Perfil from './views/Perfil'
+import FacebookLogin from './views/FacebookLogin'
 import store from './store'
 
 Vue.use(VueRouter)
@@ -91,6 +92,13 @@ const router = new VueRouter({
       name: 'perfil',
       component: Perfil,
       meta: {title: 'Perfil'}
+    },
+    {
+      path: '/auth/facebook/cadastrar_e_logar_via_callback',
+      component: FacebookLogin,
+      meta: {
+        requiresAuth: false
+      }
     },
     {
       path: '/*',

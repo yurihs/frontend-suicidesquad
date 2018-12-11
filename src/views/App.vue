@@ -25,8 +25,11 @@ export default {
       .then(decoded => this.sessaoExpiradaNoFuturo(decoded.exp))
       .then(() => this.$store.dispatch('loadUsuario', localStorage.getItem('usuario')))
       .catch(error => {
-        if (error === 'Token is expired') {
+        let facebookAccessToken = localStorage.getItem('facebookAccessToken')
+        if (error.message === 'Token is expired' && facebookAccessToken === null) {
           this.sessaoExpirada()
+        } else if ((error.message === 'Token is expired' || error.message === 'Token is null') && facebookAccessToken !== null) {
+          this.$store.dispatch('loginComFacebookAccessToken', facebookAccessToken)
         }
       })
   },
