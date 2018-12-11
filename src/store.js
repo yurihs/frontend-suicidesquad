@@ -45,6 +45,12 @@ const store = new Vuex.Store({
           context.commit('setPets', response.data)
         })
     },
+    obterPetsDoUsuario (context, idUsuario) {
+      return API.get('pets/search?tipo=GATO')
+        .then(response => {
+          context.commit('setPets', response.data)
+        })
+    },
     removerPet ({dispatch}, id) {
       return API.post('pets/' + id + '/remover')
         .then(response => {

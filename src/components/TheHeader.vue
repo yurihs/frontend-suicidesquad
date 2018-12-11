@@ -21,18 +21,18 @@
           {{ user.nome }}
         </a>
         <ul class="dropdown">
+          <router-link tag="li" :to="{name: 'perfil'}" class="mudar">
+            <a>
+              <span class="material-icons">person</span>
+              Perfil
+            </a>
+          </router-link>
           <li class="logout">
             <a @click="logout">
               <span class="material-icons">power_settings_new</span>
               Logout
             </a>
           </li>
-          <router-link tag="li" :to="{name: 'mudar_senha'}" class="mudar-senha">
-            <a>
-              <span class="material-icons">lock</span>
-              Mudar senha
-            </a>
-          </router-link>
         </ul>
       </li>
       <li class="profile" v-else-if="$route.name !== 'login'">

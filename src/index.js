@@ -12,6 +12,7 @@ import EditarPet from './views/EditarPet.vue'
 import NaoEncontrado from './views/NaoEncontrado.vue'
 import Login from './views/Login.vue'
 import MudarSenha from './views/MudarSenha.vue'
+import Perfil from './views/Perfil'
 import store from './store'
 
 Vue.use(VueRouter)
@@ -74,6 +75,12 @@ const router = new VueRouter({
       name: 'mudar_senha',
       component: MudarSenha,
       meta: {title: 'Mudar senha'}
+    },
+    {
+      path: '/perfil',
+      name: 'perfil',
+      component: Perfil,
+      meta: {title: 'Perfil'}
     },
     {
       path: '/*',
