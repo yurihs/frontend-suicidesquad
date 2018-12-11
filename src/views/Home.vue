@@ -1,12 +1,12 @@
 <template>
 <section class="home">
-  <div class="input-group">
+  <div class="campos-pesquisa">
     <div class="input-group">
       <label for="categoria">Quero encontrar...</label>
       <select required id="tipo" v-model="pesquisa.tipo">
-        <option value="CACHORRO">cachorros</option>
-        <option value="GATO">gatos</option>
-        <option value="EQUINO">equinos</option>
+        <option value="CACHORRO">Cachorros</option>
+        <option value="GATO">Gatos</option>
+        <option value="EQUINO">Equinos</option>
       </select>
     </div>
     <div class="input-group">
@@ -104,5 +104,42 @@ export default {
     grid-auto-flow: row dense;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 1em;
+  }
+
+  .campos-pesquisa {
+    display: flex;
+    margin-bottom: 2em;
+
+    .input-group {
+      margin-right: 1em;
+
+      label {
+        margin-right: 1em;
+      }
+    }
+  }
+
+  select {
+    background: white;
+    padding: 10px 12px;
+    border: 2px solid $lightgrey;
+
+    &:focus {
+      outline: none;
+      border-color: $accent;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .campos-pesquisa {
+      flex-direction: column;
+      align-items: center;
+
+      .input-group {
+        display: flex;
+        align-items: center;
+        margin-right: 0;
+      }
+    }
   }
 </style>
