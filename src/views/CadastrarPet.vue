@@ -404,6 +404,12 @@ input[type=text], textarea {
   }
 }
 
+@media (max-width: 880px) {
+  .localizacao {
+    display: block;
+  }
+}
+
 @media (max-width: 500px) {
   .botoes {
     flex-direction: column;
