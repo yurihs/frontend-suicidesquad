@@ -1,8 +1,9 @@
 import axios from 'axios'
 import NProgress from 'nprogress'
+import {backendURL} from './config'
 
 const API = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? 'https://backend-suicide-squad.herokuapp.com/' : 'http://localhost:9000/'
+  baseURL: backendURL
 })
 
 API.interceptors.request.use(
