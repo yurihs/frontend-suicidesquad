@@ -1,13 +1,13 @@
 <template>
-<article :class="{'sem-botoes': !temBotoes}" @click="verDetail">
-    <div class="thumbnail" v-bind:style="{ 'background-image': 'url(' + thumbnail + ')' }">
+<article :class="{'sem-botoes': !temBotoes}">
+    <div class="thumbnail" v-bind:style="{ 'background-image': 'url(' + thumbnail + ')' }" @click="verDetail">
     </div>
-    <div class="mensagem">
+    <div class="mensagem" @click="verDetail">
         {{ pet.tipo }} {{ pet.categoria }} {{ pet.raca }} {{ pet.nome }}
         {{ pet.descricao }}
     </div>
 
-    <div class="metadados">
+    <div class="metadados" @click="verDetail">
       <div class="publicador">{{ pet.usuario_nome }}</div>
       <div class="data">{{ pet.data }}</div>
     </div>
