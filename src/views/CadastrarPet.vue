@@ -311,6 +311,7 @@ export default {
 <style lang="scss" scoped>
 .indicador-etapas {
   margin-bottom: 2em;
+  z-index: -999;
 }
 
 .info-etapa {
