@@ -55,7 +55,7 @@ export default {
       pesquisa: {
         tipo: 'CACHORRO',
         categoria: 'PERDIDO',
-        porte: null
+        porte: ''
       }
     }
   },
@@ -81,7 +81,7 @@ export default {
       if (this.pesquisa.categoria) {
         pesquisaJson.categorias = [this.pesquisa.categoria]
       }
-      if (this.pesquisa.porte) {
+      if (this.pesquisa.porte !== '') {
         pesquisaJson.portes = [this.pesquisa.porte]
       }
       return this.$store.dispatch('pesquisarPets', pesquisaJson)
