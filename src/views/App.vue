@@ -71,9 +71,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content {
-  width: 800px;
+  width: 1000px;
   margin: 2em auto;
   margin-bottom: 4em;
+}
+
+@media (max-width: 1200px) {
+  .content {
+    width: 800px;
+  }
 }
 
 @media (max-width: 880px) {
