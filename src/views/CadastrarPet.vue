@@ -64,20 +64,24 @@
         Encontre no mapa o lugar aproximado onde você perdeu o seu pet.
       </div>
       <div class="info-etapa" v-else>
-        Escolha no mapa a sua localização.
+        Use o mapa escolher a sua localização.
       </div>
 
-      <div class="input-group">
-        <label for="localizacao_bairro">Bairro</label>
-        <input required type="text" id="localizacao_bairro" v-model="pet.localizacao.bairro">
-      </div>
-      <div class="input-group">
-        <label for="localizacao_cidade">Cidade</label>
-        <input required type="text" id="localizacao_cidade" v-model="pet.localizacao.cidade">
-      </div>
-      <div class="input-group">
-        <label for="localizacao_uf">Estado</label>
-        <input required type="text" id="localizacao_uf" v-model="pet.localizacao.uf">
+      <mapbox :access-token="mapboxAccessToken()" :map-options="mapbox.options" :geolocate-control="{show: true}" @map-load="mapLoaded" @map-click="mapClicked"></mapbox>
+
+      <div class="localizacao">
+        <div class="input-group">
+          <label for="localizacao_bairro">Bairro</label>
+          <input required type="text" id="localizacao_bairro" v-model="pet.localizacao.bairro">
+        </div>
+        <div class="input-group">
+          <label for="localizacao_cidade">Cidade</label>
+          <input required type="text" id="localizacao_cidade" v-model="pet.localizacao.cidade">
+        </div>
+        <div class="input-group">
+          <label for="localizacao_uf">Estado</label>
+          <input required type="text" id="localizacao_uf" v-model="pet.localizacao.uf">
+        </div>
       </div>
 
       <div class="botoes">
@@ -165,16 +169,26 @@
 <script>
 import StepIndicator from 'vue-step-indicator'
 import Hint from '../components/Hint'
+import Mapbox from 'mapbox-gl-vue'
+import {MAPBOX_ACCESS_TOKEN} from '../config'
+import axios from 'axios'
 
 export default {
   name: 'cadastrar-pet',
   components: {
     StepIndicator,
-    Hint
+    Hint,
+    Mapbox
   },
   data () {
     return {
       etapa: 0,
+      mapbox: {
+        map: null,
+        options: {
+          style: 'mapbox://styles/mapbox/light-v9'
+        }
+      },
       pet: {
         categoria: null,
         tipo: null,
@@ -196,15 +210,21 @@ export default {
   },
   computed: {
   },
+  created () {
+    this.$_marker = null
+  },
   methods: {
     voltarEtapa () {
-      this.etapa--
+      this.setEtapa(this.etapa - 1)
     },
     avancarEtapa () {
-      this.etapa++
+      this.setEtapa(this.etapa + 1)
     },
-    setEtapa(etapa) {
+    setEtapa (etapa) {
       this.etapa = etapa
+      if (etapa === 1) {
+        setTimeout(() => this.map.resize(), 100)
+      }
     },
     cadastrar () {
       this.$store.dispatch('cadastrarPet', this.pet)
@@ -224,11 +244,59 @@ export default {
             this.$toasted.global.server_error()
           }
         })
+    },
+    mapboxAccessToken () {
+      return MAPBOX_ACCESS_TOKEN
+    },
+    mapLoaded (map) {
+      this.map = map
+    },
+    mapClicked (map, event) {
+      if (this.$_marker === null) {
+        this.$_marker = new mapboxgl.Marker()
+          .setLngLat(event.lngLat)
+          .addTo(map)
+      } else {
+        this.$_marker.setLngLat(event.lngLat)
+      }
+      axios.create().get(
+        'https://api.mapbox.com/geocoding/v5/mapbox.places/' + event.lngLat.lng + ',' + event.lngLat.lat + '.json',
+        {
+          params: {
+            access_token: this.mapboxAccessToken(),
+            autocomplete: false,
+            types: 'neighborhood',
+            language: 'pt'
+          }
+        }
+      )
+        .then(response => response.data.features)
+        .then(features => {
+          if (features.length < 1) {
+            return
+          }
+          let firstFeature = features[0]
+          if (!firstFeature.place_type.includes('neighborhood')) {
+            return
+          }
+          this.pet.localizacao.bairro = firstFeature.text
+
+          let places = firstFeature.context.filter(context => context.id.startsWith('place'))
+          if (places.length < 1) {
+            return
+          }
+          this.pet.localizacao.cidade = places[0].text
+
+          let regions = firstFeature.context.filter(context => context.id.startsWith('region'))
+          if (regions.length < 1) {
+            return
+          }
+          this.pet.localizacao.uf = regions[0].text
+        })
     }
   }
 }
 </script>
-
 
 <style src="vue-step-indicator/dist/vue-step-indicator.css"></style>
 
@@ -272,6 +340,19 @@ input[type=text], textarea {
   }
 }
 
+#map {
+  width: 100%;
+  height: 500px;
+  margin-bottom: 4em;
+}
+
+.localizacao {
+    display: flex;
+
+    .input-group {
+        flex: 1;
+    }
+}
 
 .radio-group {
   margin-bottom: 0.8em;
