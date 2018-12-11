@@ -1,11 +1,40 @@
 <template>
 <section class="home">
-  <pet
-    v-for="pet in pets"
-    :key="pet.id"
-    :pet="pet"
-    :botaoEditar="userIsPublicador">
-  </pet>
+  <div class="input-group">
+    <div class="input-group">
+      <label for="categoria">Quero encontrar...</label>
+      <select required id="tipo" v-model="pesquisa.tipo">
+        <option value="CACHORRO">cachorros</option>
+        <option value="GATO">gatos</option>
+        <option value="EQUINO">equinos</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="porte">de</label>
+      <select required id="porte" v-model="pesquisa.porte">
+        <option value="">qualquer porte</option>
+        <option value="PEQUENO">porte pequeno</option>
+        <option value="MEDIO">porte médio</option>
+        <option value="GRANDE">porte grande</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="tipo">que</label>
+      <select required id="categoria" v-model="pesquisa.categoria">
+        <option value="ACHADO">foram achados</option>
+        <option value="PERDIDO">foram perdidos</option>
+        <option value="PARA_ADOCAO">estão para adoção</option>
+      </select>
+    </div>
+  </div>
+  <div class="resultados">
+    <pet
+      v-for="pet in pets"
+      :key="pet.id"
+      :pet="pet"
+      :botaoEditar="userIsPublicador">
+    </pet>
+  </div>
 </section>
 </template>
 
@@ -23,7 +52,11 @@ export default {
   },
   data () {
     return {
-      loaded: false
+      pesquisa: {
+        tipo: 'CACHORRO',
+        categoria: 'ACHADO',
+        porte: null
+      }
     }
   },
   computed: {
@@ -31,9 +64,19 @@ export default {
       return this.$store.getters.pets
     }
   },
+  watch: {
+    pesquisa: {
+      handler (pesquisa) {
+        if (pesquisa.tipo !== null) {
+          this.carregarPets()
+        }
+      },
+      deep: true
+    }
+  },
   methods: {
     carregarPets () {
-      return this.$store.dispatch('obterPets')
+      return this.$store.dispatch('pesquisarPets', this.pesquisa)
         .catch(() => {
           if (this.user) {
             this.$toasted.global.server_error()
@@ -43,15 +86,12 @@ export default {
   },
   created () {
     this.carregarPets()
-      .then(function () {
-        this.loaded = true
-      }.bind(this))
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .home {
+  .resultados {
     display: grid;
     grid-auto-flow: row dense;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

@@ -39,8 +39,10 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    obterPets (context) {
-      return API.get('pets/search?tipo=CACHORRO')
+    pesquisarPets (context, pesquisa) {
+      return API.get('pets/search', {
+        params: pesquisa
+      })
         .then(response => {
           context.commit('setPets', response.data)
         })
