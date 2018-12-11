@@ -201,7 +201,8 @@ textarea {
   min-width: 100%;
   height: 100px;
 }
-input[type=text], textarea {
+input[type=text], textarea, select {
+  background: white;
   padding: 10px 12px;
   border: 2px solid $lightgrey;
 
