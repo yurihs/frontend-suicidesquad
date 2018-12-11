@@ -1,5 +1,5 @@
 <template>
-<section>
+<section class="home">
   <pet
     v-for="pet in pets"
     :key="pet.id"
@@ -49,3 +49,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .home {
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 1em;
+  }
+</style>
