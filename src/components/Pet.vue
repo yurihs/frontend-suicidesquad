@@ -3,8 +3,14 @@
     <div class="thumbnail" v-bind:style="{ 'background-image': 'url(' + thumbnail + ')' }" @click="verDetail">
     </div>
     <div class="mensagem" @click="verDetail">
-        {{ pet.tipo }} {{ pet.categoria }} {{ pet.raca }} {{ pet.nome }}
-        {{ pet.descricao }}
+        <div class="tags">
+            <span class="tag">{{ metadadoTipo }}</span>
+            <span class="tag">{{ metadadoCategoria }}</span>
+            <span class="tag">{{ metadadoRaca }}</span>
+        </div>
+        <div class="nome" v-if="pet.nome">
+            {{ pet.nome }}
+        </div>
     </div>
 
     <div class="metadados" @click="verDetail">
@@ -77,6 +83,53 @@ export default {
     temBotoes () {
       let botoes = [this.botaoEditar, this.botaoRemover]
       return botoes.some((x) => x)
+    },
+    metadadoTipo () {
+      if (this.pet.tipo === 'CACHORRO') {
+        return 'Cachorro'
+      }
+      if (this.pet.tipo === 'GATO') {
+        return 'Gato'
+      }
+      if (this.pet.tipo === 'EQUINO') {
+        return 'Equino'
+      }
+      return this.pet.tipo ? this.pet.tipo.toLowerCase() : null
+    },
+    metadadoCategoria () {
+      if (this.pet.categoria === 'ACHADO') {
+        return 'Achado'
+      }
+      if (this.pet.categoria === 'PERDIDO') {
+        return 'Perdido'
+      }
+      if (this.pet.categoria === 'PARA_ADOCAO') {
+        return 'Para adoção'
+      }
+      return this.pet.tipo ? this.pet.tipo.toLowerCase() : null
+    },
+    metadadoPorte () {
+      if (this.pet.porte === 'PEQUENO') {
+        return 'Pequeno'
+      }
+      if (this.pet.porte === 'MEDIO') {
+        return 'Médio'
+      }
+      if (this.pet.porte === 'GRANDE') {
+        return 'Grande'
+      }
+      return this.pet.porte ? this.pet.porte.toLowerCase() : null
+    },
+    metadadoRaca () {
+      if (this.pet.raca === null) {
+        return null
+      }
+      if (this.pet.raca.endsWith('_SRD')) {
+        return 'SRD'
+      }
+      let raca = this.pet.raca.toLowerCase().replace('_', ' ')
+      raca = raca.charAt(0).toUpperCase() + raca.slice(1)
+      return raca
     }
   },
   methods: {
@@ -194,6 +247,18 @@ article {
       }
     }
   }
+}
+
+.mensagem {
+    .tags {
+        margin-bottom: 1em;
+    }
+
+    .tag {
+        background-color: $accent;
+        color: white;
+        padding: 0.2em 0.4em;
+    }
 }
 
 @media (max-width: 600px) {
