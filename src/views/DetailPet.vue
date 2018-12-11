@@ -49,6 +49,10 @@
                     <span>{{ pet.localizacao.bairro }}, {{ pet.localizacao.cidade}}, {{ pet.localizacao.uf }}</span>
                 </div>
             </div>
+            <div class="visitas">
+                <span class="material-icons">timeline</span>
+                <span class="contagem">{{ pet.n_visitas }} {{ pet.n_visitas === 1 ? 'visita' : 'visitas' }}</span>
+            </div>
             <div class="registros">
                 <timeline>
                     <timeline-item v-for="(registro, index) in pet.registros.slice().reverse()" :key="registro.data">
@@ -300,7 +304,7 @@ export default {
 .sidebar {
     grid-area: sidebar;
     display: grid;
-    grid-template-areas: 'contato' 'registros';
+    grid-template-areas: 'contato' 'visitas' 'registros';
     grid-auto-rows: min-content;
     grid-row-gap: 2em;
 
@@ -318,6 +322,26 @@ export default {
         .email {
             word-break: break-all;
         }
+    }
+    .visitas {
+        grid-area: visitas;
+        box-shadow: 0 15px 35px rgba(50, 50, 93, 0.10),
+        0  5px 15px rgba( 0,  0,  0, 0.07);
+        padding: 1em;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        .material-icons {
+            display: block;
+            margin-right: 0.5ex;
+        }
+
+        .contagem {
+            font-size: 1.1em;
+        }
+
     }
     .registros {
         grid-area: registros;
