@@ -10,7 +10,7 @@
 
       <li class="spacer"></li>
 
-      <router-link tag="li" :to="{name: 'cadastrar_pet'}" class="novo-pet" v-if="user">
+      <router-link tag="li" :to="{name: 'cadastrar_pet'}" class="novo-pet" v-show="user !== null">
         <a>
           <span class="material-icons">add_circle_outline</span> Cadastrar pet
         </a>
@@ -35,10 +35,16 @@
           </li>
         </ul>
       </li>
-      <li class="profile" v-else-if="$route.name !== 'login'">
+      <li class="profile" v-show="user === null && $route.name !== 'login'">
         <a @click="login">
           <span class="material-icons">exit_to_app</span>
           Login
+        </a>
+      </li>
+      <li class="profile" v-show="user === null && $route.name !== 'cadastrar_usuario'">
+        <a @click="cadastrarUsuario">
+          <span class="material-icons">add</span>
+          Cadastre-se
         </a>
       </li>
     </ul>
@@ -69,6 +75,9 @@ export default {
     },
     login () {
       this.$router.push({name: 'login'})
+    },
+    cadastrarUsuario () {
+      this.$router.push({name: 'cadastrar_usuario'})
     }
   }
 }
