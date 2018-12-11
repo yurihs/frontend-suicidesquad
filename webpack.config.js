@@ -7,6 +7,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = (env, argv) => {
   let mode = argv.mode
@@ -89,7 +90,13 @@ module.exports = (env, argv) => {
       new HTMLWebpackPlugin({
         template: './src/index.html',
         favicon: './src/images/favicon.ico'
-      })
+      }),
+      new CopyWebpackPlugin([
+        {
+          from: path.resolve(__dirname, './src/public'),
+          to: path.resolve(__dirname, 'dist/')
+        }
+      ])
     ],
     resolve: {
       alias: {
