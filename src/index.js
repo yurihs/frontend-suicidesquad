@@ -16,6 +16,7 @@ import MudarSenha from './views/MudarSenha.vue'
 import Perfil from './views/Perfil'
 import FacebookLogin from './views/FacebookLogin'
 import store from './store'
+import DetailPet from './views/DetailPet'
 
 Vue.use(VueRouter)
 Vue.use(Toasted, {
@@ -47,6 +48,14 @@ const router = new VueRouter({
       path: '/',
       name: 'index',
       component: Home,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: '/pet/:id',
+      name: 'pet',
+      component: DetailPet,
       meta: {
         requiresAuth: false
       }

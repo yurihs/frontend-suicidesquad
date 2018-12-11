@@ -1,5 +1,5 @@
 <template>
-<article :class="{'sem-botoes': !temBotoes}">
+<article :class="{'sem-botoes': !temBotoes}" @click="verDetail">
     <div class="thumbnail" v-bind:style="{ 'background-image': 'url(' + thumbnail + ')' }">
     </div>
     <div class="mensagem">
@@ -79,6 +79,11 @@ export default {
       return botoes.some((x) => x)
     }
   },
+  methods: {
+    verDetail () {
+      this.$router.push({name: 'pet', params: {id: this.pet.id}})
+    }
+  },
   mounted () {
     axios.create().get('https://dog.ceo/api/breeds/image/random')
       .then(response => {
@@ -110,6 +115,7 @@ article {
     grid-template-columns: auto;
     grid-template-rows: 4fr 1fr auto;
   }
+    cursor: pointer;
 }
 
 .thumbnail {
